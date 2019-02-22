@@ -17,6 +17,8 @@
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>/WEB-INF/applicationContext.xml</param-value>
+		<!-- applicationContext 위치 바꾸기 -->
+		<!-- <param-value>classpath:applicationContext.xml</param-value> -->
 	</context-param>
 
 	<!-- Context Load Listener -->
@@ -48,19 +50,16 @@
 	<servlet>
 		<servlet-name>spring</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<!-- 서블릿은 최초 요청이 들어올 때 초기화 된다 -> 맨 처음 호출한 유저는시간이 오래 걸린다. -> load-on-startup 
+			도입 -> 0보다 큰 값중에서 가장 낮은 수가 가장 먼저 초기화 1로 설정하면 먼저 작성된 서블릿 부터 초기화 된다. -->
+		<!-- <load-on-startup>1</load-on-startup> -->
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>spring</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
-	
-	<!-- 공통 에러 페이지 
-	<error-page>
-		<error-code>404</error-code>
-		<location>/WEB-INF/views/error/404.jsp</location>
-	</error-page>
-	<error-page>
-		<error-code>500</error-code>
-		<location>/WEB-INF/views/error/500.jsp</location>
-	</error-page>-->
+
+	<!-- 공통 에러 페이지 <error-page> <error-code>404</error-code> <location>/WEB-INF/views/error/404.jsp</location> 
+		</error-page> <error-page> <error-code>500</error-code> <location>/WEB-INF/views/error/500.jsp</location> 
+		</error-page> -->
 </web-app>

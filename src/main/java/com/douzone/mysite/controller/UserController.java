@@ -5,12 +5,10 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.douzone.mysite.exception.UserDaoException;
 import com.douzone.mysite.service.UserService;
 import com.douzone.mysite.vo.UserVo;
 
@@ -48,13 +46,17 @@ public class UserController {
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(HttpSession session, Model model, @ModelAttribute UserVo userVo) {
+		System.out.println("sdaf : " + userVo);
 		UserVo authUser = (UserVo) session.getAttribute("authuser");
 		authUser = userService.login(userVo);
+		System.out.println(authUser);
 		if (authUser == null) {
 			model.addAttribute("result", "fail");
+			System.out.println("login x");
 			return "/user/login";
 		}
 		session.setAttribute("authuser", authUser);
+		System.out.println("login");
 		return "redirect:/main";
 	}
 	@RequestMapping("/logout")

@@ -42,14 +42,14 @@
 				</table>
 				<div class="bottom">
 					<a
-						href="${pageContext.servletContext.contextPath }/board?a=&page=1">글목록</a>
+						href="${pageContext.servletContext.contextPath }/board/list?page=1">글목록</a>
 					<c:if test='${bo.nos == vo.user_no }'>
 						<a
-							href="${pageContext.servletContext.contextPath }/board?a=modify&no=${vo.no}">글수정</a>
+							href="${pageContext.servletContext.contextPath }/board/modify?no=${vo.no}">글수정</a>
 					</c:if>
 					<c:if test="${bo.nos != null }">
 						<a
-							href="${pageContext.servletContext.contextPath }/board?a=replyform&no=${vo.no}">답글쓰기</a>
+							href="${pageContext.servletContext.contextPath }/board/reply?no=${vo.no}">답글쓰기</a>
 					</c:if>
 				</div>
 			</div>

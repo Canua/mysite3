@@ -103,7 +103,7 @@
 				<c:if test="${cancel == 9999 }">
 					<div class="bottom" style = "text-align: center">
 						<div style = "display: inline-block">
-						<button style="background-color: #E8ECF6; width: 65px; height: 35px; border: 1px solid black"><a href="${pageContext.servletContext.contextPath }/board?a=&page=1" style="font-size : 14px; text-decoration: none; color : black;">글목록</a></button>
+						<button style="background-color: #E8ECF6; width: 65px; height: 35px; border: 1px solid black"><a href="${pageContext.servletContext.contextPath }/board/list?page=1" style="font-size : 14px; text-decoration: none; color : black;">글목록</a></button>
 						</div>
 					</div>
 				</c:if>

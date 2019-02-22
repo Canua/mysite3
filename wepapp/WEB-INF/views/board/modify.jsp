@@ -18,8 +18,7 @@
 		<div id="content">
 			<div id="board">
 				<form class="board-form" method="post"
-					action="${pageContext.servletContext.contextPath }/board">
-					<input type="hidden" name="a" value="modifyform" />
+					action="${pageContext.servletContext.contextPath }/board/modify">
 					<input type='hidden' name="no" value="${param.no}">
 					<table class="tbl-ex">
 						<tr>
@@ -31,12 +30,12 @@
 						</tr>
 						<tr>
 							<td class="label">내용</td>
-							<td><textarea id="content" name="content">${vo.contents }</textarea>
+							<td><textarea id="content" name="contents">${vo.contents }</textarea>
 							</td>
 						</tr>
 					</table>
 					<div class="bottom">
-						<a href="${pageContext.servletContext.contextPath }/board?a=&page=1">취소</a> <input type="submit" value="수정">
+						<a href="${pageContext.servletContext.contextPath }/board/list?page=1">취소</a> <input type="submit" value="수정">
 					</div>
 				</form>
 			</div>

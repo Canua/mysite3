@@ -25,6 +25,7 @@ public class UserService {
 	public UserVo login(UserVo userVo) {
 		UserVo authUser = null;
 		authUser = userDao.get(userVo.getEmail(), userVo.getPassword());
+		System.out.println(authUser);
 		return authUser;
 	}
 	public UserVo modifyform(UserVo authUser ) {

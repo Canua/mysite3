@@ -21,7 +21,8 @@ public class GuestbookService {
 		return list;
 	}
 	public void insert(GuestbookVo guestbookVo) {
-		guestbookDao.insert(guestbookVo);
+		long no = guestbookDao.insert(guestbookVo);
+		System.out.println("no : last_primary key " + no);
 	}
 	public void delete(GuestbookVo guestbookVo) {
 		guestbookDao.delete(guestbookVo);

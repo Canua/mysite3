@@ -9,6 +9,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.douzone.mysite.exception.UserDaoException;
@@ -16,6 +18,10 @@ import com.douzone.mysite.vo.GuestbookVo;
 
 @Repository
 public class GuestbookDao {
+	
+	@Autowired
+	private SqlSession sqlSession;
+	
 	public GuestbookVo get(long searchNo) {
 		GuestbookVo result = null;
 		
@@ -101,97 +107,15 @@ public class GuestbookDao {
 		return result;
 	}
 
-	public int insert(GuestbookVo vo) throws UserDaoException{
-		int count = 0;
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-
-		try {
-			conn = getConnection();
-
-			String sql = " insert" + "   into guestbook" + " values ( null, ?, ?, ?, now() )";
-			pstmt = conn.prepareStatement(sql);
-
-			pstmt.setString(1, vo.getName());
-			pstmt.setString(2, vo.getPassword());
-			pstmt.setString(3, vo.getMessage());
-
-			count = pstmt.executeUpdate();
-			/* 방금 들어간 row에 Primary Key 받아오는 방법 */
-			// select last_insert_id() 쿼리문을 날려서
-			// 응답할 때 온전한 row가 오게
-		} catch (SQLException e) {
-			System.out.println("error :" + e);
-		} finally {
-			// 자원 정리
-			try {
-				if (pstmt != null) {
-					pstmt.close();
-				}
-				if (conn != null) {
-					conn.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-
-		return count;
+	public long insert(GuestbookVo vo){
+		sqlSession.insert("guestbook.insert", vo);
+		// inert 쿼리 실행 후 no 값을 얻을 수 있다.
+		long no = vo.getNo();
+		return no;
 	}
 
 	public List<GuestbookVo> getList() {
-		List<GuestbookVo> list = new ArrayList<GuestbookVo>();
-
-		Connection conn = null;
-		Statement stmt = null;
-		ResultSet rs = null;
-
-		try {
-			conn = getConnection();
-
-			// Statement 객체 생성
-			stmt = conn.createStatement();
-
-			// SQL문 실행
-			String sql = "   select no," + "          name," + "	       message,"
-					+ "     	   date_format(reg_date, '%Y-%m-%d %h:%i:%s')" + "     from guestbook"
-					+ " order by reg_date desc";
-			rs = stmt.executeQuery(sql);
-
-			// 결과 가져오기(사용하기)
-			while (rs.next()) {
-				Long no = rs.getLong(1);
-				String name = rs.getString(2);
-				String message = rs.getString(3);
-				String regDate = rs.getString(4);
-
-				GuestbookVo vo = new GuestbookVo();
-				vo.setNo(no);
-				vo.setName(name);
-				vo.setMessage(message);
-				vo.setRegDate(regDate);
-
-				list.add(vo);
-			}
-		} catch (SQLException e) {
-			System.out.println("error :" + e);
-		} finally {
-			// 자원 정리
-			try {
-				if (rs != null) {
-					rs.close();
-				}
-				if (stmt != null) {
-					stmt.close();
-				}
-				if (conn != null) {
-					conn.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-
+		List<GuestbookVo> list = sqlSession.selectList("guestbook.getList");
 		return list;
 	}
 

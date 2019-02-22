@@ -9,11 +9,18 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.douzone.mysite.vo.BoardVo;
+
 @Repository
 public class BoardDao {
+
+	@Autowired
+	private SqlSession sqlSession;
+	
 	public int delete(long no) {
 		BoardVo vo = null;
 		int count = 0;
@@ -221,7 +228,7 @@ public class BoardDao {
 		try {
 			conn = getConnection();
 
-			String sql = "select o_no, g_no, depth from board where no = ?";
+			String sql = "select o_no, g_no, depth, user_no from board where no = ?";
 
 			pstmt = conn.prepareCall(sql);
 
@@ -233,10 +240,12 @@ public class BoardDao {
 				long o_no = rs.getLong(1);
 				long g_no = rs.getLong(2);
 				long depth = rs.getLong(3);
+				long user_no = rs.getLong(4);
 				result = new BoardVo();
 				result.setO_no(o_no);
 				result.setG_no(g_no);
 				result.setDepth(depth);
+				result.setUser_no(user_no);
 			}
 		} catch (SQLException e) {
 			System.out.println("error : " + e);
