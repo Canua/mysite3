@@ -16,13 +16,13 @@
 		<jsp:include page="/WEB-INF/views/includes/header.jsp"></jsp:include>
 		<div id="content">
 			<div id="user">
-				<form id="login-form" action="${pageContext.servletContext.contextPath }/user/login" method="post">
+				<form id="login-form" method="post" action="${pageContext.servletContext.contextPath }/user/auth">
 					<label class="block-label" for="email">이메일</label> 
 					<input id="email" name="email" type="text" value=""> 
 					<label class="block-label">패스워드</label> 
 					<input name="password" type="password" value="">
 					<c:set var = "fail" value= "fail"></c:set>
-					<c:if test='${fail == result}'>
+					<c:if test='${param.result == fail}'>
 							<p>
 								로그인이 실패 했습니다.
 							</p>

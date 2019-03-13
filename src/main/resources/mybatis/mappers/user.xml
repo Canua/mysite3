@@ -6,24 +6,48 @@
 		<![CDATA[
 		insert
 			into user
-			values ( null, #{name }, #{email }, #{password }, #{gender }, now() )
+			values ( null, #{name }, #{email }, #{password }, #{gender }, now(), 'USER' )
 		]]>
 	</insert>
-	<!-- password 함수를 사용한 password 암호화    password(#{password })-->
-	<select id="getByEmailAndPassword" parameterType="map" resultType="uservo">
+	<!-- password 함수를 사용한 password 암호화 password(#{password }) -->
+	<select id="getByEmailAndPassword" parameterType="map"
+		resultType="uservo">
 		<![CDATA[
-			select no, name 
+			select no, name, role
 			 from user 
 			where email = #{email } 
 			and password = #{password }
 		]]>
 	</select>
 	<!-- 파라미터 타입이 String인 경우 -->
-	<select id="getByEmail" parameterType="string" resultType="uservo">
+	<select id="getByEmail" parameterType="string"
+		resultType="uservo">
 		<![CDATA[
 			select no, name 
 			 from user 
 			where email = #{value } 
 		]]>
 	</select>
+	<select id="getByNo" resultType="uservo" parameterType="long">
+		<![CDATA[
+		select no, name, email, gender 
+		  from user 
+		 where no=#{no }
+		]]>
+	</select>
+	<update id="update">
+		<![CDATA[
+		update user
+		   set name=#{name },
+		]]>
+		<if test="password != ''">
+			<![CDATA[   
+		       password= #{password },
+			]]>
+		</if>
+		<![CDATA[
+			   gender=#{gender }
+		 where no = #{no }
+		]]>
+	</update>
 </mapper>

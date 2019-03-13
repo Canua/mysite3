@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>죄송합니다.</h1>
+	<h1>죄송합니다. ${uri }</h1>
 	<p>
 		<!-- 
 		사용자 요청이 갑자기 증가하여 서비스에 일시적인 장애가 발생하였습니다.
@@ -18,8 +18,8 @@
 	<p>
 	========================================================================
 	</p>
-	<p style ="color:#f00">
-		${errors }
+	<p style ="color:#f00; font-weight: bold">
+		${exception }
 	</p>
 </body>
 </html>

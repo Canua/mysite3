@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="comment">
+	<select id="comment.getComment" resultType="commentvo"
+		parameterType="long">
+		<![CDATA[
+		select 
+			no,
+			name, 
+			comment, 
+		    date_format(write_date, '%Y-%m-%d %h:%i:%s') as writeDate
+		 from comment 
+		where board_no = #{no }
+		]]>
+	</select>
+	
+	<insert id="addComment" parameterType="commentvo">
+		<![CDATA[
+		insert 
+		 into comment 
+		 values( null,
+		 		 1, 
+		 		 #{boardNo },
+		 		 #{comment }, 
+		 		 now(),
+		 		 #{name },
+		 		 #{password},
+		 		 1,
+		 		 1,
+		 		 1)
+		]]>
+	</insert>
+	
+	<delete id="deleteComment" parameterType="commentvo">
+		<![CDATA[
+		delete
+			from comment
+			where no = #{no }
+			and password = #{password }
+		]]>
+	</delete>
+
+</mapper>

@@ -17,25 +17,30 @@ public class UserService {
 		userDao.insert(userVo);
 		// 2. 화면전환
 	}
+
+	public boolean existEmail(String email) {
+		UserVo userVo = userDao.get(email);
+		return userVo != null;
+	}
+
 	public UserVo get(long no) {
 		UserVo userVo = null;
 		userVo = userDao.get(no);
 		return userVo;
 	}
-	public UserVo login(UserVo userVo) {
-		UserVo authUser = null;
-		authUser = userDao.get(userVo.getEmail(), userVo.getPassword());
-		System.out.println(authUser);
-		return authUser;
+
+	public UserVo getUser(String email, String password) {
+		return userDao.get(email, password);
 	}
-	public UserVo modifyform(UserVo authUser ) {
+
+	public UserVo modifyform(UserVo authUser) {
 		UserVo userVo = null;
 		userVo = userDao.get(authUser.getNo());
 		return userVo;
 	}
+
 	public void modify(UserVo userVo) {
-		UserVo authUser = null;
-		System.out.println("업데이트 실행");
 		userDao.update(userVo);
 	}
+
 }

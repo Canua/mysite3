@@ -1,16 +1,32 @@
 package com.douzone.mysite.vo;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
+
 public class UserVo {
+	
 	private long no;
+	
+	@NotEmpty
+	@Length(min=2, max=8)
 	private String name;
+	
+	@NotEmpty
+	@Email
 	private String email;
+	
 	private String password;
 	private String gender;
 	private String joinDate;
-	private long nos;
+	private String role;
 
-	public void setNos(long nos) {
-		this.nos = nos;
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
 	}
 
 	public long getNo() {
@@ -61,14 +77,10 @@ public class UserVo {
 		this.joinDate = joinDate;
 	}
 
-	public long getNos() {
-		return nos;
-	}
-
 	@Override
 	public String toString() {
 		return "UserVo [no=" + no + ", name=" + name + ", email=" + email + ", password=" + password + ", gender="
-				+ gender + ", joinDate=" + joinDate + ", nos=" + nos + "]";
+				+ gender + ", joinDate=" + joinDate + ", role=" + role + "]";
 	}
 
 }

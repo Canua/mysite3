@@ -17,7 +17,7 @@ import com.douzone.mysite.vo.GuestbookVo;
 @Controller
 @RequestMapping("/guestbook")
 public class GusetbookController {
-	
+
 	@Autowired
 	private GuestbookService guestbookService;
 
@@ -26,24 +26,32 @@ public class GusetbookController {
 		List<GuestbookVo> list = new ArrayList<GuestbookVo>();
 		list = guestbookService.list();
 		model.addAttribute("list", list);
-		
+
 		return "/guestbook/list";
 	}
-	@RequestMapping(value="/add", method=RequestMethod.POST)
+
+	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public String add(@ModelAttribute GuestbookVo guestbookVo) {
-		guestbookService.insert(guestbookVo);	
+		guestbookService.insert(guestbookVo);
 		// redirect
 		return "redirect:/guestbook/list";
 	}
-	@RequestMapping(value="/deleteform", method=RequestMethod.GET)
-	public String form(
-			@RequestParam (value="no" , required=false) Long no, Model model) {
+
+	@RequestMapping(value = "/deleteform", method = RequestMethod.GET)
+	public String form(@RequestParam(value = "no", required = false) Long no, Model model) {
 		model.addAttribute("no", no);
 		return "/guestbook/delete";
 	}
-	@RequestMapping(value="/delete", method=RequestMethod.POST)
+
+	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	public String delete(@ModelAttribute GuestbookVo guestbookVo) {
 		guestbookService.delete(guestbookVo);
 		return "redirect:/guestbook/list";
-	}	
+	}
+
+//	@RequestMapping(value = "/ajax")
+//	public String ajaxList() {
+//		return "/guestbook/index-ajax";
+//	}
+
 }

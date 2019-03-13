@@ -4,10 +4,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <div id="header">
-	<h1>MySite</h1>
+	<h1>${siteVo.title }</h1>
 	<ul>
 		<c:choose>
-			<c:when test="${empty authuser }">
+			<c:when test="${empty authUser }">
 				<li><a
 					href="${pageContext.servletContext.contextPath }/user/login">로그인</a>
 				<li>
@@ -16,13 +16,18 @@
 				<li>
 			</c:when>
 			<c:otherwise>
-				<li><a
-					href="${pageContext.servletContext.contextPath }/user/modify">회원정보수정</a>
+			<c:if test="${authUser.role == 'ADMIN' }">
 				<li>
-				<li><a
-					href="${pageContext.servletContext.contextPath }/user/logout">로그아웃</a>
+				<a href="${pageContext.servletContext.contextPath }/admin/main">관리자 사이트</a>
+				</li>
+			</c:if>
 				<li>
-				<li>${authuser.name }님안녕하세요 ^^;</li>
+				<a href="${pageContext.servletContext.contextPath }/user/modify">회원정보수정</a>
+				<li>
+				<li>
+				<a href="${pageContext.servletContext.contextPath }/user/logout">로그아웃</a>
+				<li>
+				<li>${authUser.name }님안녕하세요 ^^;</li>
 			</c:otherwise>
 		</c:choose>
 	</ul>

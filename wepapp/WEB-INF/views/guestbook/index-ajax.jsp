@@ -75,16 +75,16 @@ var fetchList = function(){
 	
 	++page;
 	$.ajax({
-		url: "/mysite2/api/guestbook?a=ajax-list&p=" + page,
+		url: "${pageContext.request.contextPath }/guestbook/ajax/list?p=" + page,
 		type: "get",
 		dataType: "json",
 		data:"",
 		success: function(response){
+			console.log(response.data);
 			if(response.result == "fail"){
 				console.warn(response.data);
 				return;
 			}
-			
 			console.log(response.data);
 			
 			// 페이지 끝을 검출
@@ -124,12 +124,13 @@ $(function () {
 				var password = $("#password-delete").val();
 				console.log("ajax 삭제");
 				console.log(password);
+				console.log(clickNo);
 				// 지워졌다는 결과를 보고 pwd가 맞나 안맞나 확인 후 ajax를 이용해서 삭제시킨다.
 				$.ajax({
-					url: "/mysite2/api/guestbook",
+					url: "${pageContext.request.contextPath }/guestbook/ajax/delete",
 					type: "post",
 					dataType: "json",
-					data: "a=ajax-delete&clickNo=" + clickNo +
+					data: "clickNo=" + clickNo +
 						    "&password= " + password,
 							success: function (response){
 							console.log("response.result : " + response.result);
@@ -194,19 +195,19 @@ $(function () {
 		
 		//return true;
 		$.ajax({
-			url: "/mysite2/api/guestbook",
+			url: "${pageContext.request.contextPath }/guestbook/ajax/insert",
 			type: "post",
 			dataType: "json",
-			data: "a=ajax-insert&name=" + name +
+			data: "name=" + name +
 					"&password= " + password +
 					"&message= " + message,
 					success: function (response) {
 					console.log("ajax-Insert 실행");
 					render(response.data, true);
 					},
-					error: function (xhr, status, e) {
-						console.log(status + ":" + e);
-					}
+					//error: function (xhr, status, e) {
+					//console.log(status + ":" + e);
+					//}
 				});
 			});
 	});
