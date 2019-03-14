@@ -16,9 +16,10 @@
 	<!-- Context Parameter -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
+		<!-- applicationContext 경로 수정 
 		<param-value>/WEB-INF/applicationContext.xml</param-value>
-		<!-- applicationContext 위치 바꾸기 -->
-		<!-- <param-value>classpath:applicationContext.xml</param-value> -->
+		-->
+		<param-value>classpath:applicationContext.xml</param-value>
 	</context-param>
 
 	<!-- Context Load Listener -->
